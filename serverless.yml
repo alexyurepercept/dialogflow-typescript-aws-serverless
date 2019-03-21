@@ -1,0 +1,17 @@
+service: dialogflow-typescript-aws-serverless
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    NODE_ENV: ${opt:stage}
+
+functions:
+  dialogflowIntentProcessor:
+    handler: dist/index.handler
+    timeout: 30
+    environment:
+      DEBUG: dialogflow:debug
+    events:
+      - http:
+          path: intentProcessor/dialogflow
+          method: post
